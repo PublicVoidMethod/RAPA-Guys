@@ -597,6 +597,7 @@ GameObject:
   - component: {fileID: 2145681088}
   - component: {fileID: 2145681087}
   - component: {fileID: 2145681086}
+  - component: {fileID: 2145681091}
   - component: {fileID: 2145681085}
   - component: {fileID: 2145681090}
   m_Layer: 0
@@ -711,3 +712,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotSpeed: 200
+--- !u!143 &2145681091
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145681084}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
