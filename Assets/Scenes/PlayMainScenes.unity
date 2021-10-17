@@ -620,6 +620,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 5
+  gravity: -20
+  jumpPower: 5
 --- !u!136 &2145681086
 CapsuleCollider:
   m_ObjectHideFlags: 0
