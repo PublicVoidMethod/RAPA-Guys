@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5a28aa8a851b8aa469953e58ab46c1b7
+guid: e822c1884b52ffd4c929ca365821bf59
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -9,6 +9,21 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Body.003
     second: {fileID: 2100000, guid: d314d579df0efa24d867825f17aab4a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye.003
+    second: {fileID: 2100000, guid: f180d40739991c541a2f35a22e9a8d3a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Face.003
+    second: {fileID: 2100000, guid: 6f3a7a6274da746469954b1e22e525d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Icons exp.003
+    second: {fileID: 2100000, guid: 5177e869a3fee2943a3cfd62bd750396, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

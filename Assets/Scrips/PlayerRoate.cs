@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class PlayerRoate : MonoBehaviour
 {
-    public float rotSpeed = 200.0f;
+    public float rotSpeed = 10.0f;
 
     public Transform cameraArm;
-
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
@@ -32,7 +27,7 @@ public class PlayerRoate : MonoBehaviour
         //// 회전 방향으로 회전한다.
         //transform.eulerAngles += dir * rotSpeed * Time.deltaTime;
         #endregion
-        #region TPS 인터넷
+        #region TPS 인터넷  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         Vector3 camAngle = cameraArm.rotation.eulerAngles;
         float x = (camAngle.x - mouseDelta.y);
