@@ -8,11 +8,14 @@ public class PlayerMove : MonoBehaviour
     public float gravity = -20.0f;
     public float jumpPower = 15.0f;
     public float rotateSpeed = 10.0f;
+    public float divingSpeed = 5.0f;
 
     float yVelocity = 0;
     int jumpCount = 1;
+    int divingCount = 1;
 
     public Transform playerModel;
+    public Transform divingPoint;
 
     CharacterController cc;
     //Rigidbody rb;
@@ -26,6 +29,7 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         InputMove();
+        //PlayerDiving();
     }
 
     void InputMove()
@@ -69,6 +73,7 @@ public class PlayerMove : MonoBehaviour
         if (cc.collisionFlags == CollisionFlags.Below)
         {
             jumpCount = 1;
+            //divingCount = 1;  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             yVelocity = 0;
         }
 
@@ -80,4 +85,16 @@ public class PlayerMove : MonoBehaviour
             jumpCount--;
         }
     }
+
+    //void PlayerDiving()  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    //{
+    //    // 왼쪽 컨트롤키를 누른다면
+    //    if (Input.GetKeyDown(KeyCode.LeftControl))
+    //    {
+    //        yVelocity = 0;
+    //        Vector3 dir = divingPoint.position - transform.position;
+    //        dir.Normalize();
+    //        transform.position += dir * divingSpeed * Time.deltaTime;
+    //    }
+    //}
 }
