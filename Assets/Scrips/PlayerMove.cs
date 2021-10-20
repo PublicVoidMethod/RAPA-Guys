@@ -109,6 +109,14 @@ public class PlayerMove : MonoBehaviour
             Vector3 dir = (transform.position - hit.transform.position);
             dir.y = 0;
             float radius = dir.magnitude;
+
+            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            float theta = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
+
+            // 현재 위치의 좌표는 (dir.x, dir.z)
+            // 다음 위치의 좌표는 ()
+            // 다음 프레임의 좌표를 예상하기 위해서는 현재 좌표의 세타를 구해야하고
+            // 현재 좌표의 세타는 arctan(dir.z / dir.x)
         }
     }
 }
