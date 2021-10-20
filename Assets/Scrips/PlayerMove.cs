@@ -97,4 +97,18 @@ public class PlayerMove : MonoBehaviour
     //        transform.position += dir * divingSpeed * Time.deltaTime;
     //    }
     //}
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("SpinObstacle"))
+        {
+            RotateObstacle ro = hit.transform.GetComponentInParent<RotateObstacle>();
+            float rotSpeed = ro.rotateSpeed;
+
+
+            Vector3 dir = (transform.position - hit.transform.position);
+            dir.y = 0;
+            float radius = dir.magnitude;
+        }
+    }
 }
