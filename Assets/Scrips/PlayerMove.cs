@@ -16,9 +16,9 @@ public class PlayerMove : MonoBehaviour
 
     public Transform playerModel;
     public Transform divingPoint;
+    public Vector3 acceleVec;
 
     CharacterController cc;
-    //Rigidbody rb;
     
     void Start()
     {
@@ -64,7 +64,7 @@ public class PlayerMove : MonoBehaviour
         dir.y = yVelocity;
 
         // 움직이게 한다.
-        cc.Move(dir * playerSpeed * Time.deltaTime);
+        cc.Move((dir * playerSpeed * Time.deltaTime) + acceleVec);
         //transform.position += dir * playerSpeed * Time.deltaTime;
     }
 
@@ -103,20 +103,38 @@ public class PlayerMove : MonoBehaviour
         if (hit.gameObject.CompareTag("SpinObstacle"))
         {
             RotateObstacle ro = hit.transform.GetComponentInParent<RotateObstacle>();
-            float rotSpeed = ro.rotateSpeed;
+            float alpha = ro.rotateSpeed * Time.deltaTime;  //  @@@@@@@@@@@@@@@@@@@@
 
+            transform.Rotate(Vector3.up * ro.rotateSpeed * Time.deltaTime);
 
             Vector3 dir = (transform.position - hit.transform.position);
             dir.y = 0;
             float radius = dir.magnitude;
+            //print(dir);
 
             // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             float theta = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
+            float nextTheta = theta - alpha;
+            float nextPosX = Mathf.Cos(nextTheta * Mathf.Deg2Rad) * radius;
+            //float nextPosY = transform.position.y;
+            float nextPosZ = Mathf.Sin(nextTheta * Mathf.Deg2Rad) * radius;
+
+            Vector3 nextPos = new Vector3(nextPosX, 0, nextPosZ);
+
+            Vector3 finalDir = nextPos - dir;
+
+            //print("theta : " + theta + "/ alpha : " + alpha + " /Dir : " + dir + "/ next Pos : " + nextPos);
+
+            acceleVec = finalDir;
 
             // 현재 위치의 좌표는 (dir.x, dir.z)
             // 다음 위치의 좌표는 ()
             // 다음 프레임의 좌표를 예상하기 위해서는 현재 좌표의 세타를 구해야하고
             // 현재 좌표의 세타는 arctan(dir.z / dir.x)
+        }
+        else
+        {
+            acceleVec = Vector3.zero;
         }
     }
 }

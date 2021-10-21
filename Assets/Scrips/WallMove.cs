@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class WallMove : MonoBehaviour
 {
+    public float progressTime = 2f;
+
     float elapsedTime;
-    float progressTime = 2f;
     bool isPlay = true;
 
     Vector3 startPos;
