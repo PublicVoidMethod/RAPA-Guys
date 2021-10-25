@@ -4,43 +4,24 @@ using UnityEngine;
 
 public class BridgeActive : MonoBehaviour
 {
-    bool isPlay = true;
-
-    GameObject go;
-
+    public float time = 2f;
+    WaitForSeconds waitSencond;
     void Start()
     {
-        go = transform.GetChild(0).gameObject;
-        StartCoroutine(BridgeONOFF(true));
-        //go = transform.GetChild(1).gameObject;
-        //StartCoroutine(BridgeONOFF(false));
-        //go = transform.GetChild(2).gameObject;
-        //StartCoroutine(BridgeONOFF(true));
-        //go = transform.GetChild(3).gameObject;
-        //StartCoroutine(BridgeONOFF(false));
-
-        //if(go == transform.GetChild(0).gameObject && go == transform.GetChild(1))
-        //{
-        //    StartCoroutine(BridgeONOFF(true));
-        //}
-        //else
-        //{
-        //    StartCoroutine(BridgeONOFF(false));
-        //}
+        waitSencond = new WaitForSeconds(time);
+        for (int i = 0; i < transform.childCount; i++)
+        {
+           StartCoroutine(BridgeONOFF(transform.GetChild(i).gameObject));
+        }
     }
 
-    IEnumerator BridgeONOFF(bool startValue)
+    IEnumerator BridgeONOFF(GameObject obj)
     {
-        while (isPlay)
+        while (true)
         {
-            go.SetActive(startValue);
-
-            yield return new WaitForSeconds(2f);
-
-            startValue = !startValue;
-            //gameObject.SetActive(startValue);
-
+            yield return waitSencond;
             //yield return new WaitForSeconds(2f);
+            obj.SetActive(!obj.activeSelf);
         }
     }
 }
