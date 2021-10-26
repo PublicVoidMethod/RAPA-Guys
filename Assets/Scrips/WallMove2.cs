@@ -18,11 +18,6 @@ public class WallMove2 : MonoBehaviour
         StartCoroutine(WallDownandup());
     }
 
-    void Update()
-    {
-
-    }
-
     IEnumerator WallDownandup()
     {
         while (isplay)

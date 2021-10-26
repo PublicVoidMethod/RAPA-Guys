@@ -2838,7 +2838,7 @@ MonoBehaviour:
   - {fileID: 1298751481}
   - {fileID: 1126754620}
   stone: {fileID: 5837109390229940503, guid: 0a37b6052943e5847813a2d70df4a965, type: 3}
-  stonePocket: {fileID: 0}
+  stonePocket: {fileID: 851184238}
 --- !u!1 &597180688
 GameObject:
   m_ObjectHideFlags: 0
@@ -8700,7 +8700,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911514698}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.34, y: 0.5, z: -1.21}
+  m_LocalPosition: {x: 1.32, y: 0.5, z: -1.23}
   m_LocalScale: {x: 0.6, y: 1, z: 0.6}
   m_Children: []
   m_Father: {fileID: 1346929921}

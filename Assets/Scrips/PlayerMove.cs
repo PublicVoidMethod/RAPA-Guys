@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    //enum PlayerState  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    //{
+    //    Normal,
+    //    Be_Hit,
+    //    Diving
+    //}
+    //PlayerState pState;
+        
     public float playerSpeed = 5.0f;
     public float gravity = -20.0f;
     public float jumpPower = 15.0f;
@@ -24,19 +32,34 @@ public class PlayerMove : MonoBehaviour
     {
         // 캐릭터콘트롤러 캐싱
         cc = GetComponent<CharacterController>();
+
+        //pState = PlayerState.Normal;  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     }
 
     void Update()
     {
         InputMove();
         //PlayerDiving();
+
+        //switch (pState) // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //{
+        //    case PlayerState.Normal:
+
+        //        break;
+        //    case PlayerState.Be_Hit:
+
+        //        break;
+        //    case PlayerState.Diving:
+
+        //        break;
+        //}
     }
 
     void InputMove()
     {
         // 좌우의 입력값을 만들고
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
 
         // 좌우의 방향을 넣어주고
         Vector3 dir = new Vector3(h, 0, v);
@@ -47,7 +70,7 @@ public class PlayerMove : MonoBehaviour
 
         dir.y = 0;
 
-        // 3d모델의 회전  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        // 3d모델의 회전  ???????????????????????????????????????????????????
         //playerModel.forward = Vector3.Lerp(playerModel.forward, dir, 0.5f);
         // 방향의 길이값이 있을 때(0보다 클 때)
         if (dir.sqrMagnitude != 0)
@@ -112,8 +135,10 @@ public class PlayerMove : MonoBehaviour
             float radius = dir.magnitude;
             //print(dir);
 
-            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            // 현재위치의 각도를 구한다. @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             float theta = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
+
+            // 한프레임 뒤의 위치를 예상한다.
             float nextTheta = theta - alpha;
             float nextPosX = Mathf.Cos(nextTheta * Mathf.Deg2Rad) * radius;
             //float nextPosY = transform.position.y;
@@ -132,8 +157,10 @@ public class PlayerMove : MonoBehaviour
             // 다음 프레임의 좌표를 예상하기 위해서는 현재 좌표의 세타를 구해야하고
             // 현재 좌표의 세타는 arctan(dir.z / dir.x)
         }
+        // SpinObstacle이라는 태그에 닿지 않았다면
         else
         {
+            // 
             acceleVec = Vector3.zero;
         }
     }

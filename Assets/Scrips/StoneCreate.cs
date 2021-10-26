@@ -31,38 +31,6 @@ public class StoneCreate : MonoBehaviour
         StartCoroutine(StoneInstantiate());
     }
 
-    //
-    GameObject ReturnObject()
-    {
-        // null이 되는 변수를 하나 선언
-        GameObject atciveObj = null;
-
-        // stonePool의 들어가있는 GameObject들을 반복한다.
-        foreach(GameObject go in stonePool)
-        {
-            // 만약 go가 비활성화라면
-            if (!go.activeSelf)
-            {
-                // atciveObj에 go를 넣고
-                atciveObj = go;
-                // ObjFalse()의 코루틴을 시작한다.
-                StartCoroutine(ObjFalse(atciveObj));
-                // 포이치문을 나온다
-                break;
-            }
-        }
-        // atciveObj에 담는다.
-        return atciveObj;
-    }
-    
-    IEnumerator ObjFalse(GameObject go)
-    {
-        // 5초를 기다린 후
-        yield return new WaitForSeconds(5.0f);
-        // go를 비활성화 한다.
-        go.SetActive(false);
-    }
-
     IEnumerator StoneInstantiate()
     {
         // 무한루프를 돌거야
@@ -91,9 +59,39 @@ public class StoneCreate : MonoBehaviour
                     yield return new WaitForSeconds(makeItRandom);
                 }
             }
-                    
             yield return waitSeconds;
         }
+    }
+
+    GameObject ReturnObject()
+    {
+        // null이 되는 변수를 하나 선언 왜??????????  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        GameObject atciveObj = null;
+
+        // stonePool의 들어가있는 GameObject들을 반복한다.
+        foreach(GameObject go in stonePool)
+        {
+            // 만약 go가 비활성화라면
+            if (!go.activeSelf)
+            {
+                // atciveObj에 go를 넣고
+                atciveObj = go;
+                // ObjFalse()의 코루틴을 시작한다.
+                StartCoroutine(ObjFalse(atciveObj));
+                // 포이치문을 나온다
+                break;
+            }
+        }
+        // atciveObj에 담는다.
+        return atciveObj;
+    }
+    
+    IEnumerator ObjFalse(GameObject go)  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    {
+        // 5초를 기다린 후
+        yield return new WaitForSeconds(5.0f);
+        // go를 비활성화 한다.
+        go.SetActive(false);
     }
 
     #region 인스턴시에이트 방식
