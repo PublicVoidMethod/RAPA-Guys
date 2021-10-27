@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    //enum PlayerState  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    //{
-    //    Normal,
-    //    Be_Hit,
-    //    Diving
-    //}
-    //PlayerState pState;
-        
+    public enum PlayerState  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    {
+        Idle,
+        Normal,
+        Be_Hit,
+        Diving
+    }
+    public PlayerState pState;
+
     public float playerSpeed = 5.0f;
     public float gravity = -20.0f;
     public float jumpPower = 15.0f;
@@ -20,7 +21,7 @@ public class PlayerMove : MonoBehaviour
 
     float yVelocity = 0;
     int jumpCount = 1;
-    //int divingCount = 1;
+    int divingCount = 1;
 
     public Transform playerModel;
     public Transform divingPoint;
@@ -33,26 +34,26 @@ public class PlayerMove : MonoBehaviour
         // 캐릭터콘트롤러 캐싱
         cc = GetComponent<CharacterController>();
 
-        //pState = PlayerState.Normal;  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        pState = PlayerState.Normal;  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     }
 
     void Update()
     {
-        InputMove();
-        //PlayerDiving();
+        switch (pState) // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        {
+            case PlayerState.Idle:
 
-        //switch (pState) // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //{
-        //    case PlayerState.Normal:
+                break;
+            case PlayerState.Normal:
+                InputMove();
+                break;
+            case PlayerState.Be_Hit:
 
-        //        break;
-        //    case PlayerState.Be_Hit:
-
-        //        break;
-        //    case PlayerState.Diving:
-
-        //        break;
-        //}
+                break;
+            case PlayerState.Diving:
+                PlayerDiving();
+                break;
+        }
     }
 
     void InputMove()
@@ -89,6 +90,12 @@ public class PlayerMove : MonoBehaviour
         // 움직이게 한다.
         cc.Move((dir * playerSpeed * Time.deltaTime) + acceleVec);
         //transform.position += dir * playerSpeed * Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            divingCount--;
+            pState = PlayerState.Diving;
+        }
     }
 
     void PlayerJump()
@@ -96,7 +103,6 @@ public class PlayerMove : MonoBehaviour
         if (cc.collisionFlags == CollisionFlags.Below)
         {
             jumpCount = 1;
-            //divingCount = 1;  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             yVelocity = 0;
         }
 
@@ -109,17 +115,23 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    //void PlayerDiving()  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    //{
-    //    // 왼쪽 컨트롤키를 누른다면
-    //    if (Input.GetKeyDown(KeyCode.LeftControl))
-    //    {
-    //        yVelocity = 0;
-    //        Vector3 dir = divingPoint.position - transform.position;
-    //        dir.Normalize();
-    //        transform.position += dir * divingSpeed * Time.deltaTime;
-    //    }
-    //}
+    void PlayerDiving()  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    {
+        StartCoroutine(DivingTime());
+    }
+
+    IEnumerator DivingTime()
+    {
+        yVelocity = 0;
+        Vector3 dir = divingPoint.position - transform.position;
+        dir.Normalize();
+        cc.Move(dir * divingSpeed * Time.deltaTime);
+
+        yield return new WaitForSeconds(0.5f);
+        divingCount = 1;
+
+        pState = PlayerState.Normal;
+    }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -160,8 +172,20 @@ public class PlayerMove : MonoBehaviour
         // SpinObstacle이라는 태그에 닿지 않았다면
         else
         {
-            // 
+            // 관성의 힘을 0으로 만든다.
             acceleVec = Vector3.zero;
         }
+
+        if (hit.gameObject.CompareTag("Stone"))
+        {
+            StartCoroutine(FallDown());
+        }
+    }
+
+    IEnumerator FallDown()
+    {
+        pState = PlayerState.Be_Hit;
+        yield return new WaitForSeconds(1f);
+        pState = PlayerState.Normal;
     }
 }
