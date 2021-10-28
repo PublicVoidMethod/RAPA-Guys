@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class PlayerMove : MonoBehaviour
     public float gravity = -20.0f;
     public float jumpPower = 15.0f;
     public float rotateSpeed = 10.0f;
-    public float divingSpeed = 5.0f;
+    public float divingSpeed = 7.0f;
 
     float yVelocity = 0;
     int jumpCount = 1;
@@ -28,43 +29,74 @@ public class PlayerMove : MonoBehaviour
     public Vector3 acceleVec;
 
     CharacterController cc;
+    Animator anim;
     
     void Start()
     {
         // 캐릭터콘트롤러 캐싱
         cc = GetComponent<CharacterController>();
+        anim = GetComponentInChildren<Animator>();
 
-        pState = PlayerState.Normal;  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        pState = PlayerState.Idle;
+        StartCoroutine(StayIdle());
     }
 
     void Update()
     {
-        switch (pState) // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        switch (pState)
         {
             case PlayerState.Idle:
-
+                Idle();
                 break;
             case PlayerState.Normal:
-                InputMove();
                 break;
             case PlayerState.Be_Hit:
-
                 break;
             case PlayerState.Diving:
-                PlayerDiving();
+                //PlayerDiving();
                 break;
         }
+
+        InputMove();
+    }
+
+    private void Idle()  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    {
+        
+    }
+
+    IEnumerator StayIdle()
+    {
+        yield return new WaitForSeconds(3f);
+        pState = PlayerState.Normal;
+        
     }
 
     void InputMove()
     {
-        // 좌우의 입력값을 만들고
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        Vector3 dir;
+        if (pState == PlayerState.Normal)
+        {
+            // 좌우의 입력값을 만들고
+            float h = Input.GetAxis("Horizontal");
+            float v = Input.GetAxis("Vertical");
 
-        // 좌우의 방향을 넣어주고
-        Vector3 dir = new Vector3(h, 0, v);
-        dir.Normalize();
+            // 좌우의 방향을 넣어주고
+            dir = new Vector3(h, 0, v);
+        }
+        else
+        {
+            dir = Vector3.zero;
+        }
+
+        // dir값이 속도가 1보다 클 때만 dir값을 정규화 해준다
+        if(dir.magnitude >= 1)
+        {
+            dir.Normalize();
+        }
+
+        // 입력값을 받으면 에니메이션 float값을 줌
+        anim.SetFloat("Move", dir.magnitude);
 
         // 방향 벡터를 카메라의 방향을 기준으로 재계산 한다.
         dir = Camera.main.transform.TransformDirection(dir);
@@ -91,10 +123,11 @@ public class PlayerMove : MonoBehaviour
         cc.Move((dir * playerSpeed * Time.deltaTime) + acceleVec);
         //transform.position += dir * playerSpeed * Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) && divingCount > 0)
         {
             divingCount--;
             pState = PlayerState.Diving;
+            StartCoroutine(DivingTime());
         }
     }
 
@@ -117,15 +150,17 @@ public class PlayerMove : MonoBehaviour
 
     void PlayerDiving()  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     {
-        StartCoroutine(DivingTime());
+        
     }
 
     IEnumerator DivingTime()
     {
-        yVelocity = 0;
-        Vector3 dir = divingPoint.position - transform.position;
-        dir.Normalize();
-        cc.Move(dir * divingSpeed * Time.deltaTime);
+        //    yVelocity = 0;
+        //    Vector3 dir = divingPoint.position - transform.position;
+        //    dir.Normalize();
+        //    cc.Move(dir * divingSpeed * Time.deltaTime);
+
+        acceleVec = playerModel.forward * divingSpeed * Time.deltaTime;
 
         yield return new WaitForSeconds(0.5f);
         divingCount = 1;
@@ -172,19 +207,35 @@ public class PlayerMove : MonoBehaviour
         // SpinObstacle이라는 태그에 닿지 않았다면
         else
         {
-            // 관성의 힘을 0으로 만든다.
-            acceleVec = Vector3.zero;
+            if(pState != PlayerState.Be_Hit && pState != PlayerState.Diving)
+            {
+                // 관성의 힘을 0으로 만든다.
+                acceleVec = Vector3.zero;
+            }
+            else
+            {
+                // 관성의 힘에 저항값을 준다(자신의 힘에 저항 수치를 곱한다.)
+                acceleVec = acceleVec * 0.98f;
+            }
         }
 
-        if (hit.gameObject.CompareTag("Stone"))
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Stone"))
         {
-            StartCoroutine(FallDown());
+            Vector3 dir = transform.position - other.transform.position;
+
+            StartCoroutine(FallDown(dir));
         }
     }
 
-    IEnumerator FallDown()
+    IEnumerator FallDown(Vector3 dir)
     {
         pState = PlayerState.Be_Hit;
+        acceleVec = dir * Time.deltaTime;
         yield return new WaitForSeconds(1f);
         pState = PlayerState.Normal;
     }
