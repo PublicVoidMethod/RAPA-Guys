@@ -19,6 +19,7 @@ public class PlayerMove : MonoBehaviour
     public float jumpPower = 15.0f;
     public float rotateSpeed = 10.0f;
     public float divingSpeed = 7.0f;
+    public float hammerPower = 10.0f;
 
     float yVelocity = 0;
     int jumpCount = 1;
@@ -127,6 +128,7 @@ public class PlayerMove : MonoBehaviour
         {
             divingCount--;
             pState = PlayerState.Diving;
+            anim.SetTrigger("Dive");
             StartCoroutine(DivingTime());
         }
     }
@@ -228,7 +230,19 @@ public class PlayerMove : MonoBehaviour
         {
             Vector3 dir = transform.position - other.transform.position;
 
+            anim.SetTrigger("Be_Hit");
+
             StartCoroutine(FallDown(dir));
+        }
+
+        else if (other.gameObject.CompareTag("Hammer"))
+        {
+            Vector3 dir = transform.position - other.transform.position;
+            //Vector3 dir = Vector3.Lerp(transform.position, other.transform.position, hammerPower * Time.deltaTime); // @@@@@@@@@@@@@@
+
+            anim.SetTrigger("Be_Hit");
+
+            StartCoroutine(HammerSmite(dir));
         }
     }
 
@@ -236,7 +250,17 @@ public class PlayerMove : MonoBehaviour
     {
         pState = PlayerState.Be_Hit;
         acceleVec = dir * Time.deltaTime;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2.7f);
+        pState = PlayerState.Normal;
+    }
+
+    IEnumerator HammerSmite(Vector3 dir)
+    {
+        pState = PlayerState.Be_Hit;
+        acceleVec = dir * hammerPower * Time.deltaTime;
+        // 여기서 러프를 써야하는데 어떻게 해야하나.....  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //acceleVec = dir * Time.deltaTime;  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        yield return new WaitForSeconds(2.5f);
         pState = PlayerState.Normal;
     }
 }

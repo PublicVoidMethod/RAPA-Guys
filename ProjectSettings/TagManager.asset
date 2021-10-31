@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - SpinObstacle
   - Stone
+  - Hammer
   layers:
   - Default
   - TransparentFX
