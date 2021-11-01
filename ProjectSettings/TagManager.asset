@@ -9,6 +9,8 @@ TagManager:
   - SpinObstacle
   - Stone
   - Hammer
+  - Wall
+  - FinishLine
   layers:
   - Default
   - TransparentFX

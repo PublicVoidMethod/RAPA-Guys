@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallMove2 : MonoBehaviour
+public class Bridge2 : MonoBehaviour
 {
-    public float progressTime = 2f;
-    
-    float elapsedTime;
-    bool isplay = true;
+    public float progressTime = 3.0f;
+
+    float elapsedTime = 0;
 
     Vector3 startPos;
     Vector3 endPos;
@@ -15,27 +14,24 @@ public class WallMove2 : MonoBehaviour
     void Start()
     {
         startPos = transform.position;
-        endPos = transform.position + new Vector3(0, 0.8f, 0);
-        StartCoroutine(WallDownandup());
+        endPos = transform.position + new Vector3(0, 0, 10.3f);
+        StartCoroutine(BridgeRepetition());
     }
 
-    IEnumerator WallDownandup()
+    IEnumerator BridgeRepetition()
     {
-        while (isplay)
+        while (true)
         {
-            while (elapsedTime <= progressTime)  //  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            while (elapsedTime <= progressTime)
             {
                 elapsedTime += Time.deltaTime;
                 float percent = elapsedTime / progressTime;
 
                 transform.position = Vector3.Lerp(startPos, endPos, percent);
                 yield return new WaitForEndOfFrame();
-                // 한 프레임을 기다린 이유는 Lerp의 진행과정을 그리기 위한 작업이다.
-                // 만약 한 프레임을 기다리지 않는다면 Lerp의 진행과정이 한프레임에 모두 반복되므로
-                // 순간이동 한 것처럼 보이게 된다.
             }
             elapsedTime = 0;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2.9f);
 
             while (elapsedTime <= progressTime)
             {
@@ -46,7 +42,12 @@ public class WallMove2 : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
             elapsedTime = 0;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.9f);
         }
+    }
+
+    void Update()
+    {
+
     }
 }

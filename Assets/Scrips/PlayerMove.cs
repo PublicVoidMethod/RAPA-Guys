@@ -120,6 +120,11 @@ public class PlayerMove : MonoBehaviour
         yVelocity += gravity * Time.deltaTime;
         dir.y = yVelocity;
 
+        if(acceleVec.y > 0)
+        {
+            acceleVec = acceleVec * 0.98f;
+        }
+
         // 움직이게 한다.
         cc.Move((dir * playerSpeed * Time.deltaTime) + acceleVec);
         //transform.position += dir * playerSpeed * Time.deltaTime;
@@ -218,6 +223,7 @@ public class PlayerMove : MonoBehaviour
             {
                 // 관성의 힘에 저항값을 준다(자신의 힘에 저항 수치를 곱한다.)
                 acceleVec = acceleVec * 0.98f;
+                acceleVec.y = acceleVec.y * 0.3f;
             }
         }
 
@@ -232,7 +238,7 @@ public class PlayerMove : MonoBehaviour
 
             anim.SetTrigger("Be_Hit");
 
-            StartCoroutine(FallDown(dir));
+            if(pState == PlayerState.Normal) StartCoroutine(FallDown(dir));
         }
 
         else if (other.gameObject.CompareTag("Hammer"))
@@ -242,7 +248,12 @@ public class PlayerMove : MonoBehaviour
 
             anim.SetTrigger("Be_Hit");
 
-            StartCoroutine(HammerSmite(dir));
+            if(pState == PlayerState.Normal) StartCoroutine(HammerSmite(dir));
+        }
+
+        else if (other.gameObject.CompareTag("FinishLine"))
+        {
+            gameObject.SetActive(false);
         }
     }
 
@@ -250,17 +261,21 @@ public class PlayerMove : MonoBehaviour
     {
         pState = PlayerState.Be_Hit;
         acceleVec = dir * Time.deltaTime;
-        yield return new WaitForSeconds(2.7f);
+        //yield return new WaitForSeconds(2.7f);
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Be_Hit"));
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95f);
         pState = PlayerState.Normal;
     }
 
     IEnumerator HammerSmite(Vector3 dir)
     {
         pState = PlayerState.Be_Hit;
-        acceleVec = dir * hammerPower * Time.deltaTime;
+        acceleVec = (dir + Vector3.up * 0.8f)  * hammerPower * Time.deltaTime;
         // 여기서 러프를 써야하는데 어떻게 해야하나.....  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //acceleVec = dir * Time.deltaTime;  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        yield return new WaitForSeconds(2.5f);
+        //yield return new WaitForSeconds(2.5f);
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Be_Hit"));
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95f);
         pState = PlayerState.Normal;
     }
 }
