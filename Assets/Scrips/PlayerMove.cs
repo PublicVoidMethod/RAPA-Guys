@@ -90,7 +90,7 @@ public class PlayerMove : MonoBehaviour
             dir = Vector3.zero;
         }
 
-        // dir값이 속도가 1보다 클 때만 dir값을 정규화 해준다
+        // dir값이 속도가 1보다 클 때만 dir값을 정규화 해준다(GetAxis의 -1~0, 0~1 의 값을 낮춰준다)
         if(dir.magnitude >= 1)
         {
             dir.Normalize();
