@@ -24,7 +24,6 @@ public class PlayerMove : MonoBehaviour
     float yVelocity = 0;
     int jumpCount = 1;
     int divingCount = 1;
-    int jumpZero = 0;
 
     public Transform playerModel;
     public Transform divingPoint;
