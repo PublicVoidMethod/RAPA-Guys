@@ -4,6 +4,7 @@ using UnityEngine;
 public class WallMove : MonoBehaviour
 {
     public float progressTime = 2f;
+    public float startWaitTime = 2f;
 
     float elapsedTime;
     bool isPlay = true;
@@ -13,6 +14,7 @@ public class WallMove : MonoBehaviour
 
     void Start()
     {
+        startWaitTime = Random.Range(0, 3f);
         startPos = transform.position;
         endPos = transform.position + new Vector3(0, -0.801f, 0);
         StartCoroutine(WallUpandDown());
@@ -20,6 +22,7 @@ public class WallMove : MonoBehaviour
 
     IEnumerator WallUpandDown()
     {
+        yield return new WaitForSeconds(startWaitTime);
         while(isPlay)
         {
             while(elapsedTime <= progressTime)  //  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

@@ -11,6 +11,8 @@ TagManager:
   - Hammer
   - Wall
   - FinishLine
+  - SavePoint
+  - Pendulum
   layers:
   - Default
   - TransparentFX

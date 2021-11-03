@@ -24,6 +24,7 @@ public class PlayerMove : MonoBehaviour
     float yVelocity = 0;
     int jumpCount = 1;
     int divingCount = 1;
+    int jumpZero = 0;
 
     public Transform playerModel;
     public Transform divingPoint;
@@ -132,6 +133,7 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl) && divingCount > 0)
         {
             divingCount--;
+            jumpPower = 0;
             pState = PlayerState.Diving;
             anim.SetTrigger("Dive");
             StartCoroutine(DivingTime());
@@ -162,6 +164,7 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator DivingTime()
     {
+
         //    yVelocity = 0;
         //    Vector3 dir = divingPoint.position - transform.position;
         //    dir.Normalize();
@@ -171,6 +174,7 @@ public class PlayerMove : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         divingCount = 1;
+        jumpPower = 2.5f;
 
         pState = PlayerState.Normal;
     }
@@ -236,8 +240,6 @@ public class PlayerMove : MonoBehaviour
         {
             Vector3 dir = transform.position - other.transform.position;
 
-            anim.SetTrigger("Be_Hit");
-
             if(pState == PlayerState.Normal) StartCoroutine(FallDown(dir));
         }
 
@@ -250,6 +252,19 @@ public class PlayerMove : MonoBehaviour
 
             if(pState == PlayerState.Normal) StartCoroutine(HammerSmite(dir));
         }
+       
+        else if (other.gameObject.CompareTag("Pendulum"))
+        {
+            Vector3 dir = transform.position - other.transform.position;
+            //Vector3 dir = Vector3.Lerp(transform.position, other.transform.position, hammerPower * Time.deltaTime); // @@@@@@@@@@@@@@
+
+            dir.y = 0.002f;
+            dir = dir * 2f;
+
+            anim.SetTrigger("Be_Hit");
+
+            if (pState == PlayerState.Normal) StartCoroutine(HammerSmite(dir));
+        }
 
         else if (other.gameObject.CompareTag("FinishLine"))
         {
@@ -257,8 +272,14 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    public void StartFallDown(Vector3 dir)
+    {
+        StartCoroutine(FallDown(dir));
+    }
+
     IEnumerator FallDown(Vector3 dir)
     {
+        anim.SetTrigger("Be_Hit");
         pState = PlayerState.Be_Hit;
         acceleVec = dir * Time.deltaTime;
         //yield return new WaitForSeconds(2.7f);
