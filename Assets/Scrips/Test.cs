@@ -7,37 +7,27 @@ using Unity.MLAgents.Sensors;
 
 public class Test : Agent
 {
-    //void Start()
-    //{
-        
-    //}
-
     public override void Initialize() // void Start() 대신 사용하는 함수
     {
         
     }
 
-    public override void OnEpisodeBegin() // 한 판이 시작될 때 호출 함수??????????????????
+    public override void OnEpisodeBegin() // 리셋을 담당(콜백함수)
     {
         
     }
 
-    public override void OnActionReceived(ActionBuffers actions)
+    public override void OnActionReceived(ActionBuffers actions) // void Update() 대신 사용하는 함수
     {
         
     }
 
-    public override void CollectObservations(VectorSensor sensor)
+    public override void CollectObservations(VectorSensor sensor) // 
     {
         
     }
 
-    public override void Heuristic(in ActionBuffers actionsOut) // 테스트를 위해 사람이 직접 action 값을 주는 기능
-    {
-        
-    }
-
-    void Update()
+    public override void Heuristic(in ActionBuffers actionsOut) // 테스트를 위해 사람이 직접 action 값을 전달해주는 기능
     {
         
     }
