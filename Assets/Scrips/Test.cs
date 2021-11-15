@@ -14,7 +14,7 @@ public class Test : Agent
 
     public override void OnEpisodeBegin() // 리셋을 담당(콜백함수)
     {
-        
+        // 결국 플레이어가 결승선을 통과하여 플레이어가 비활성화 하면 다시 처음부터 시작한다.
     }
 
     public override void OnActionReceived(ActionBuffers actions) // void Update() 대신 사용하는 함수

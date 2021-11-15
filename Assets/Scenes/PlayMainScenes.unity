@@ -2281,8 +2281,10 @@ GameObject:
   - component: {fileID: 354074085}
   - component: {fileID: 354074084}
   - component: {fileID: 354074083}
+  - component: {fileID: 354074091}
   - component: {fileID: 354074082}
   - component: {fileID: 354074089}
+  - component: {fileID: 354074090}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2435,6 +2437,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savePoint: {x: 0, y: 0, z: 0}
+--- !u!114 &354074090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354074081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 1
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 01000000
+    VectorActionSize: 01000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_ObservableAttributeHandling: 0
+--- !u!114 &354074091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354074081}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d33e5efdada821441a1ea1925964e3cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  pState: 0
+  playerSpeed: 5
+  gravity: -20
+  jumpPower: 15
+  rotateSpeed: 10
+  divingSpeed: 7
+  hammerPower: 10
+  playerModel: {fileID: 0}
+  divingPoint: {fileID: 0}
+  acceleVec: {x: 0, y: 0, z: 0}
 --- !u!1 &380215974
 GameObject:
   m_ObjectHideFlags: 0
@@ -7079,8 +7137,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressTime: 2.5
-  startPos: {fileID: 0}
-  endPos: {fileID: 0}
+  startPos: {fileID: 1118439106}
+  endPos: {fileID: 1854434992}
 --- !u!1 &1200208690
 GameObject:
   m_ObjectHideFlags: 0

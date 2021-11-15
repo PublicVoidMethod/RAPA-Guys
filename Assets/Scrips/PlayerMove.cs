@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.MLAgents;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -31,9 +32,12 @@ public class PlayerMove : MonoBehaviour
 
     CharacterController cc;
     Animator anim;
-    
+
     void Start()
     {
+        // 나의 포지션을 랜덤한 시작 위치에 위치시킨다.
+        RandomStart.instance.StartPositionSet(gameObject);
+
         // 캐릭터콘트롤러 캐싱
         cc = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
@@ -78,11 +82,11 @@ public class PlayerMove : MonoBehaviour
         Vector3 dir;
         if (pState == PlayerState.Normal)
         {
-            // 좌우의 입력값을 만들고
+            // 전후좌우의 입력값을 만들고
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
 
-            // 좌우의 방향을 넣어주고
+            // 전후좌우의 방향을 넣어주고
             dir = new Vector3(h, 0, v);
         }
         else
@@ -267,7 +271,9 @@ public class PlayerMove : MonoBehaviour
 
         else if (other.gameObject.CompareTag("FinishLine"))
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            // 다시 출발선으로 옮겨준다.
+            RandomStart.instance.StartPositionSet(gameObject);
         }
     }
 
