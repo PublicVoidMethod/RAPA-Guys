@@ -2491,6 +2491,7 @@ MonoBehaviour:
   rotateSpeed: 10
   divingSpeed: 3
   hammerPower: 5
+  isLearning: 1
   playerModel: {fileID: 1091299539}
   divingPoint: {fileID: 660650269}
   acceleVec: {x: 0, y: 0, z: 0}
