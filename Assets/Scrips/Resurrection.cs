@@ -6,22 +6,25 @@ public class Resurrection : MonoBehaviour
 {
     public Vector3 savePoint;
 
-    PlayerMove pm;
+    //PlayerMove pm;
+    AgentTest at;
 
     void Start()
     {
         savePoint = GameObject.Find("StartingPoints").transform.position;
-        pm = GetComponent<PlayerMove>();
+        // pm = GetComponent<PlayerMove>();
+        at = GetComponent<AgentTest>();
     }
 
     void Update()
     {
-        if(transform.position.y < -2.5f)
+        if(transform.position.y < -5.5f)
         {
             float randomX = Random.Range(-5.5f, 5.5f);
             transform.position = savePoint + new Vector3(randomX, 0, 0);
 
-            pm.StartFallDown(Vector3.zero);
+            //pm.StartFallDown(Vector3.zero);
+            at.StartFallDown(Vector3.zero);
 
             //transform.position = go.GetComponent<RandomStart>().startPoints[random].transform.position;
         }

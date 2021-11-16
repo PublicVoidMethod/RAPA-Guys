@@ -2285,6 +2285,7 @@ GameObject:
   - component: {fileID: 354074082}
   - component: {fileID: 354074089}
   - component: {fileID: 354074090}
+  - component: {fileID: 354074092}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2313,7 +2314,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354074081}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a895a0e8488e85745af0783cbf527b3e, type: 3}
   m_Name: 
@@ -2454,14 +2455,14 @@ MonoBehaviour:
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 01000000
-    VectorActionSize: 01000000
+      BranchSizes: 03000000030000000200000002000000
+    VectorActionSize: 03000000030000000200000002000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 1
   m_BehaviorName: My Behavior
   TeamId: 0
   m_UseChildSensors: 1
@@ -2474,7 +2475,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354074081}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d33e5efdada821441a1ea1925964e3cd, type: 3}
   m_Name: 
@@ -2484,15 +2485,29 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   pState: 0
-  playerSpeed: 5
-  gravity: -20
-  jumpPower: 15
+  playerSpeed: 2
+  gravity: -10
+  jumpPower: 2.5
   rotateSpeed: 10
-  divingSpeed: 7
-  hammerPower: 10
-  playerModel: {fileID: 0}
-  divingPoint: {fileID: 0}
+  divingSpeed: 3
+  hammerPower: 5
+  playerModel: {fileID: 1091299539}
+  divingPoint: {fileID: 660650269}
   acceleVec: {x: 0, y: 0, z: 0}
+--- !u!114 &354074092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354074081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 1
+  TakeActionsBetweenDecisions: 1
 --- !u!1 &380215974
 GameObject:
   m_ObjectHideFlags: 0
@@ -9235,7 +9250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 1
   TakeActionsBetweenDecisions: 1
 --- !u!114 &1641433017
 MonoBehaviour:

@@ -17,23 +17,29 @@ public class AgentTest : Agent
     }
     public PlayerState pState;
 
-    public float playerSpeed = 5.0f;
-    public float gravity = -20.0f;
-    public float jumpPower = 15.0f;
+    public float playerSpeed = 2.0f;
+    public float gravity = -10.0f;
+    public float jumpPower = 2.5f;
     public float rotateSpeed = 10.0f;
-    public float divingSpeed = 7.0f;
-    public float hammerPower = 10.0f;
-
+    public float divingSpeed = 3.0f;
+    public float hammerPower = 5.0f;
+    
     float yVelocity = 0;
     int jumpCount = 1;
     int divingCount = 1;
+    float lerpHorizontal;
+    float lerpVertical;
 
     public Transform playerModel;
     public Transform divingPoint;
+    
     public Vector3 acceleVec;
+
 
     CharacterController cc;
     Animator anim;
+    
+    Vector3 finalDir;
 
     public override void Initialize()
     {
@@ -43,6 +49,7 @@ public class AgentTest : Agent
 
         pState = PlayerState.Idle;
         StartCoroutine(StayIdle());
+        StartCoroutine(MoveCo());
     }
 
     public override void OnEpisodeBegin()
@@ -53,72 +60,20 @@ public class AgentTest : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        
-    }
+        //AddReward(-1.0f / MaxStep);
 
-    public override void CollectObservations(VectorSensor sensor)
-    {
-        
-    }
+        //if (transform.position.y < 5.5f) AddReward(-3.0f);
 
-    public override void Heuristic(in ActionBuffers actionsOut)
-    {
-        
-    }
+        // 전후, 좌우, 점프, 다이빙의 액션키값 받기
+        float horizontal = actions.DiscreteActions.Array[0] - 1;
+        float vertical = actions.DiscreteActions.Array[1] - 1;
+        int jump = actions.DiscreteActions.Array[2];
+        int diving = actions.DiscreteActions.Array[3];
 
-    void Update()
-    {
-        switch (pState)
-        {
-            case PlayerState.Idle:
-                Idle();
-                break;
-            case PlayerState.Normal:
-                break;
-            case PlayerState.Be_Hit:
-                break;
-            case PlayerState.Diving:
-                //PlayerDiving();
-                break;
-        }
+        lerpHorizontal = Mathf.Lerp(lerpHorizontal, horizontal, 10 * Time.deltaTime);
+        lerpVertical = Mathf.Lerp(lerpVertical, vertical, 10 * Time.deltaTime);
 
-        InputMove();
-    }
-
-    private void Idle()  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    {
-
-    }
-
-    IEnumerator StayIdle()
-    {
-        yield return new WaitForSeconds(3f);
-        pState = PlayerState.Normal;
-
-    }
-
-    void InputMove()
-    {
-        Vector3 dir;
-        if (pState == PlayerState.Normal)
-        {
-            // 전후좌우의 입력값을 만들고
-            float h = Input.GetAxis("Horizontal") + 1;
-            float v = Input.GetAxis("Vertical") + 1;
-
-            // 전후좌우의 방향을 넣어주고
-            dir = new Vector3(h - 1, 0, v - 1);
-        }
-        else
-        {
-            dir = Vector3.zero;
-        }
-
-        // dir값이 속도가 1보다 클 때만 dir값을 정규화 해준다(GetAxis의 -1~0, 0~1 의 값을 낮춰준다)
-        if (dir.magnitude >= 1)
-        {
-            dir.Normalize();
-        }
+        Vector3 dir = new Vector3(lerpHorizontal, 0, lerpVertical);
 
         // 입력값을 받으면 에니메이션 float값을 줌
         anim.SetFloat("Move", dir.magnitude);
@@ -138,7 +93,7 @@ public class AgentTest : Agent
                 rotateSpeed * Time.deltaTime);
         }
 
-        PlayerJump();
+        PlayerJump(jump);
 
         // 중력 값을 누적한다.
         yVelocity += gravity * Time.deltaTime;
@@ -150,10 +105,12 @@ public class AgentTest : Agent
         }
 
         // 움직이게 한다.
-        cc.Move((dir * playerSpeed * Time.deltaTime) + acceleVec);
+
+        finalDir = dir;
+
         //transform.position += dir * playerSpeed * Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.LeftControl) && divingCount > 0)
+        if (diving != 0 && divingCount > 0)
         {
             divingCount--;
             jumpPower = 0;
@@ -163,7 +120,166 @@ public class AgentTest : Agent
         }
     }
 
-    void PlayerJump()
+    public override void CollectObservations(VectorSensor sensor)
+    {
+        
+    }
+
+    public override void Heuristic(in ActionBuffers actionsOut)
+    {
+        Vector3 dir;
+        if (pState == PlayerState.Normal)
+        {
+            // 전후좌우의 입력값을 만들고
+            float h = Input.GetAxis("Horizontal") + 1;
+            float v = Input.GetAxis("Vertical") + 1;
+
+            // 전후좌우의 방향을 넣어주고
+            dir = new Vector3(h - 1, 0, v - 1);
+
+            actionsOut.DiscreteActions.Array[0] = (int)h;
+            actionsOut.DiscreteActions.Array[1] = (int)v;
+        }
+        else
+        {
+            dir = Vector3.zero;
+            actionsOut.DiscreteActions.Array[0] = 1;
+            actionsOut.DiscreteActions.Array[1] = 1;
+        }
+        // dir값이 속도가 1보다 클 때만 dir값을 정규화 해준다(GetAxis의 -1~0, 0~1 의 값을 낮춰준다)
+        if (dir.magnitude >= 1)
+        {
+            dir.Normalize();
+        }
+        if (Input.GetButtonDown("Jump"))
+        {
+            actionsOut.DiscreteActions.Array[2] = 1;
+        }
+        else
+        {
+            actionsOut.DiscreteActions.Array[2] = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            actionsOut.DiscreteActions.Array[3] = 1;
+        }
+        else
+        {
+            actionsOut.DiscreteActions.Array[3] = 0;
+        }
+    }
+
+    void Update()
+    {
+        switch (pState)
+        {
+            case PlayerState.Idle:
+                Idle();
+                break;
+            case PlayerState.Normal:
+                break;
+            case PlayerState.Be_Hit:
+                break;
+            case PlayerState.Diving:
+                //PlayerDiving();
+                break;
+        }
+
+        //InputMove();
+    }
+
+
+    IEnumerator MoveCo()
+    {
+        while(true)
+        {
+            cc.Move((finalDir * playerSpeed * Time.deltaTime) + acceleVec);
+
+            yield return null;
+        }
+    }
+
+    private void Idle()  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    {
+
+    }
+
+    IEnumerator StayIdle()
+    {
+        yield return new WaitForSeconds(3f);
+        pState = PlayerState.Normal;
+
+    }
+
+    #region 이동함수
+    //void InputMove()
+    //{
+    //    Vector3 dir;
+    //    if (pState == PlayerState.Normal)
+    //    {
+    //        // 전후좌우의 입력값을 만들고
+    //        float h = Input.GetAxis("Horizontal") + 1;
+    //        float v = Input.GetAxis("Vertical") + 1;
+
+    //        // 전후좌우의 방향을 넣어주고
+    //        dir = new Vector3(h - 1, 0, v - 1);
+    //    }
+    //    else
+    //    {
+    //        dir = Vector3.zero;
+    //    }
+
+    //    // dir값이 속도가 1보다 클 때만 dir값을 정규화 해준다(GetAxis의 -1~0, 0~1 의 값을 낮춰준다)
+    //    if (dir.magnitude >= 1)
+    //    {
+    //        dir.Normalize();
+    //    }
+
+    //    // 입력값을 받으면 에니메이션 float값을 줌
+    //    anim.SetFloat("Move", dir.magnitude);
+
+    //    // 방향 벡터를 카메라의 방향을 기준으로 재계산 한다.
+    //    dir = Camera.main.transform.TransformDirection(dir);
+
+    //    dir.y = 0;
+
+    //    // 3d모델의 회전  ???????????????????????????????????????????????????
+    //    //playerModel.forward = Vector3.Lerp(playerModel.forward, dir, 0.5f);
+    //    // 방향의 길이값이 있을 때(0보다 클 때)
+    //    if (dir.sqrMagnitude != 0)
+    //    {
+    //        // 모델의 회전값 = 모델의 본래의 회전값, 바라보고자 하는 회전값
+    //        playerModel.rotation = Quaternion.Lerp(playerModel.rotation, Quaternion.LookRotation(dir),
+    //            rotateSpeed * Time.deltaTime);
+    //    }
+
+    //    PlayerJump();
+
+    //    // 중력 값을 누적한다.
+    //    yVelocity += gravity * Time.deltaTime;
+    //    dir.y = yVelocity;
+
+    //    if (acceleVec.y > 0)
+    //    {
+    //        acceleVec = acceleVec * 0.98f;
+    //    }
+
+    //    // 움직이게 한다.
+    //    cc.Move((dir * playerSpeed * Time.deltaTime) + acceleVec);
+    //    //transform.position += dir * playerSpeed * Time.deltaTime;
+
+    //    if (Input.GetKeyDown(KeyCode.LeftControl) && divingCount > 0)
+    //    {
+    //        divingCount--;
+    //        jumpPower = 0;
+    //        pState = PlayerState.Diving;
+    //        anim.SetTrigger("Dive");
+    //        StartCoroutine(DivingTime());
+    //    }
+    //}
+    #endregion
+
+    void PlayerJump(int jumpTrigger)
     {
         if (cc.collisionFlags == CollisionFlags.Below)
         {
@@ -172,7 +288,8 @@ public class AgentTest : Agent
         }
 
         // 점프를 하기 위해 스페이스바의 입력을 받는다면
-        if (Input.GetButtonDown("Jump") && jumpCount > 0)
+        //if (Input.GetButtonDown("Jump") && jumpCount > 0)
+        if(jumpTrigger != 0 && jumpCount > 0)
         {
             // 위쪽 방향으로 점프력을 추가한다.
             yVelocity = jumpPower;
@@ -253,14 +370,14 @@ public class AgentTest : Agent
                 acceleVec.y = acceleVec.y * 0.3f;
             }
         }
-
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Stone"))
         {
+            //AddReward(-10);
+
             Vector3 dir = transform.position - other.transform.position;
 
             if (pState == PlayerState.Normal) StartCoroutine(FallDown(dir));
@@ -268,6 +385,8 @@ public class AgentTest : Agent
 
         else if (other.gameObject.CompareTag("Hammer"))
         {
+            //AddReward(-10);
+
             Vector3 dir = transform.position - other.transform.position;
             //Vector3 dir = Vector3.Lerp(transform.position, other.transform.position, hammerPower * Time.deltaTime); // @@@@@@@@@@@@@@
 
@@ -278,6 +397,8 @@ public class AgentTest : Agent
 
         else if (other.gameObject.CompareTag("Pendulum"))
         {
+            //AddReward(-10);
+
             Vector3 dir = transform.position - other.transform.position;
             //Vector3 dir = Vector3.Lerp(transform.position, other.transform.position, hammerPower * Time.deltaTime); // @@@@@@@@@@@@@@
 
@@ -291,9 +412,12 @@ public class AgentTest : Agent
 
         else if (other.gameObject.CompareTag("FinishLine"))
         {
+            //AddReward(100);
+
             //gameObject.SetActive(false);
             // 다시 출발선으로 옮겨준다.
-            RandomStart.instance.StartPositionSet(gameObject);
+            //RandomStart.instance.StartPositionSet(gameObject);
+            EndEpisode();
         }
     }
 
