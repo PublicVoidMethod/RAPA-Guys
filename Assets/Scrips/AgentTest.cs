@@ -23,7 +23,8 @@ public class AgentTest : Agent
     public float rotateSpeed = 10.0f;
     public float divingSpeed = 3.0f;
     public float hammerPower = 5.0f;
-    
+    public bool isLearning;
+
     float yVelocity = 0;
     int jumpCount = 1;
     int divingCount = 1;
@@ -412,12 +413,17 @@ public class AgentTest : Agent
 
         else if (other.gameObject.CompareTag("FinishLine"))
         {
-            //AddReward(100);
 
-            //gameObject.SetActive(false);
+            if (!isLearning) gameObject.SetActive(false);
+
+            else
+            {
+                //AddReward(100);
+                EndEpisode();
+            }
             // 다시 출발선으로 옮겨준다.
             //RandomStart.instance.StartPositionSet(gameObject);
-            EndEpisode();
+
         }
     }
 
