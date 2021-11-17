@@ -36,7 +36,7 @@ public class AgentTest : Agent
     
     public Vector3 acceleVec;
 
-
+    public RandomStart rs;
     CharacterController cc;
     Animator anim;
     
@@ -51,19 +51,27 @@ public class AgentTest : Agent
         pState = PlayerState.Idle;
         StartCoroutine(StayIdle());
         StartCoroutine(MoveCo());
+        oldZ = transform.position.z;
     }
 
     public override void OnEpisodeBegin()
     {
         // 나의 포지션을 랜덤한 시작 위치에 위치시킨다.
-        RandomStart.instance.StartPositionSet(gameObject);
+        rs.StartPositionSet(gameObject);
     }
+
+    float oldZ = 0;
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        //AddReward(-1.0f / MaxStep);
+        AddReward(-1.0f / MaxStep);
 
-        //if (transform.position.y < 5.5f) AddReward(-3.0f);
+        if(oldZ < transform.position.z)
+        AddReward(0.5f / MaxStep);
+
+        oldZ = transform.position.z;
+
+        if (transform.position.y < 5.5f) AddReward(-3.0f);
 
         // 전후, 좌우, 점프, 다이빙의 액션키값 받기
         float horizontal = actions.DiscreteActions.Array[0] - 1;
@@ -192,7 +200,7 @@ public class AgentTest : Agent
 
     IEnumerator MoveCo()
     {
-        while(true)
+        while (true)
         {
             cc.Move((finalDir * playerSpeed * Time.deltaTime) + acceleVec);
 
@@ -305,7 +313,6 @@ public class AgentTest : Agent
 
     IEnumerator DivingTime()
     {
-
         //    yVelocity = 0;
         //    Vector3 dir = divingPoint.position - transform.position;
         //    dir.Normalize();
@@ -377,7 +384,7 @@ public class AgentTest : Agent
     {
         if (other.gameObject.CompareTag("Stone"))
         {
-            //AddReward(-10);
+            AddReward(-10);
 
             Vector3 dir = transform.position - other.transform.position;
 
@@ -386,7 +393,7 @@ public class AgentTest : Agent
 
         else if (other.gameObject.CompareTag("Hammer"))
         {
-            //AddReward(-10);
+            AddReward(-10);
 
             Vector3 dir = transform.position - other.transform.position;
             //Vector3 dir = Vector3.Lerp(transform.position, other.transform.position, hammerPower * Time.deltaTime); // @@@@@@@@@@@@@@
@@ -398,7 +405,7 @@ public class AgentTest : Agent
 
         else if (other.gameObject.CompareTag("Pendulum"))
         {
-            //AddReward(-10);
+            AddReward(-10);
 
             Vector3 dir = transform.position - other.transform.position;
             //Vector3 dir = Vector3.Lerp(transform.position, other.transform.position, hammerPower * Time.deltaTime); // @@@@@@@@@@@@@@
@@ -418,12 +425,11 @@ public class AgentTest : Agent
 
             else
             {
-                //AddReward(100);
+                AddReward(100);
                 EndEpisode();
             }
             // 다시 출발선으로 옮겨준다.
             //RandomStart.instance.StartPositionSet(gameObject);
-
         }
     }
 

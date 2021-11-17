@@ -6,12 +6,17 @@ public class Resurrection : MonoBehaviour
 {
     public Vector3 savePoint;
 
+    public GameObject parent;
+    public GameObject startPos;
+
     //PlayerMove pm;
     AgentTest at;
 
     void Start()
     {
-        savePoint = GameObject.Find("StartingPoints").transform.position;
+        parent = transform.parent.gameObject;
+        startPos = parent.transform.Find("StartingPoints").gameObject;
+        savePoint = parent.transform.position;
         // pm = GetComponent<PlayerMove>();
         at = GetComponent<AgentTest>();
     }
