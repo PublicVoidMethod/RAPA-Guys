@@ -1,0 +1,65 @@
+{
+    "RapaGuys": {
+        "checkpoints": [
+            {
+                "steps": 2499984,
+                "file_path": "results\\RapaGuys_12\\RapaGuys\\RapaGuys-2499984.onnx",
+                "reward": -30001.334763526917,
+                "creation_time": 1637253180.0080075,
+                "auxillary_file_paths": [
+                    "results\\RapaGuys_12\\RapaGuys\\RapaGuys-2499984.pt"
+                ]
+            },
+            {
+                "steps": 2999984,
+                "file_path": "results\\RapaGuys_12\\RapaGuys\\RapaGuys-2999984.onnx",
+                "reward": -30001.33462715149,
+                "creation_time": 1637254390.2764497,
+                "auxillary_file_paths": [
+                    "results\\RapaGuys_12\\RapaGuys\\RapaGuys-2999984.pt"
+                ]
+            },
+            {
+                "steps": 3499984,
+                "file_path": "results\\RapaGuys_12\\RapaGuys\\RapaGuys-3499984.onnx",
+                "reward": -30001.61222934723,
+                "creation_time": 1637255555.3726668,
+                "auxillary_file_paths": [
+                    "results\\RapaGuys_12\\RapaGuys\\RapaGuys-3499984.pt"
+                ]
+            },
+            {
+                "steps": 3999984,
+                "file_path": "results\\RapaGuys_12\\RapaGuys\\RapaGuys-3999984.onnx",
+                "reward": -30001.34341621399,
+                "creation_time": 1637256647.552927,
+                "auxillary_file_paths": [
+                    "results\\RapaGuys_12\\RapaGuys\\RapaGuys-3999984.pt"
+                ]
+            },
+            {
+                "steps": 4324640,
+                "file_path": "results\\RapaGuys_12\\RapaGuys\\RapaGuys-4324640.onnx",
+                "reward": null,
+                "creation_time": 1637257355.6595583,
+                "auxillary_file_paths": [
+                    "results\\RapaGuys_12\\RapaGuys\\RapaGuys-4324640.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 4324640,
+            "file_path": "results\\RapaGuys_12\\RapaGuys.onnx",
+            "reward": null,
+            "creation_time": 1637257355.6595583,
+            "auxillary_file_paths": [
+                "results\\RapaGuys_12\\RapaGuys\\RapaGuys-4324640.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.10.0+cu113"
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "RapaGuys": {
+        "checkpoints": [
+            {
+                "steps": 222699,
+                "file_path": "results\\RapaGuys_11\\RapaGuys\\RapaGuys-222699.onnx",
+                "reward": null,
+                "creation_time": 1637247323.1622305,
+                "auxillary_file_paths": [
+                    "results\\RapaGuys_11\\RapaGuys\\RapaGuys-222699.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 222699,
+            "file_path": "results\\RapaGuys_11\\RapaGuys.onnx",
+            "reward": null,
+            "creation_time": 1637247323.1622305,
+            "auxillary_file_paths": [
+                "results\\RapaGuys_11\\RapaGuys\\RapaGuys-222699.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.10.0+cu113"
+    }
+}

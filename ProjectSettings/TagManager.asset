@@ -13,6 +13,7 @@ TagManager:
   - FinishLine
   - SavePoint
   - Pendulum
+  - Bridge
   layers:
   - Default
   - TransparentFX

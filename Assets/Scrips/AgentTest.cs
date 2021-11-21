@@ -66,12 +66,13 @@ public class AgentTest : Agent
     {
         AddReward(-1.0f / MaxStep);
 
-        if(oldZ < transform.position.z)
-        AddReward(0.5f / MaxStep);
+        if (oldZ < transform.position.z)
+            AddReward(5.0f / MaxStep);
+        else AddReward(-0.5f / MaxStep);
 
         oldZ = transform.position.z;
 
-        if (transform.position.y < 5.5f) AddReward(-3.0f);
+        if (transform.position.y < 5f) AddReward(-3.0f);
 
         // 전후, 좌우, 점프, 다이빙의 액션키값 받기
         float horizontal = actions.DiscreteActions.Array[0] - 1;
@@ -384,7 +385,7 @@ public class AgentTest : Agent
     {
         if (other.gameObject.CompareTag("Stone"))
         {
-            AddReward(-10);
+            AddReward(-1.0f);
 
             Vector3 dir = transform.position - other.transform.position;
 
@@ -393,7 +394,7 @@ public class AgentTest : Agent
 
         else if (other.gameObject.CompareTag("Hammer"))
         {
-            AddReward(-10);
+            AddReward(-1.0f);
 
             Vector3 dir = transform.position - other.transform.position;
             //Vector3 dir = Vector3.Lerp(transform.position, other.transform.position, hammerPower * Time.deltaTime); // @@@@@@@@@@@@@@
@@ -405,7 +406,7 @@ public class AgentTest : Agent
 
         else if (other.gameObject.CompareTag("Pendulum"))
         {
-            AddReward(-10);
+            AddReward(-1.0f);
 
             Vector3 dir = transform.position - other.transform.position;
             //Vector3 dir = Vector3.Lerp(transform.position, other.transform.position, hammerPower * Time.deltaTime); // @@@@@@@@@@@@@@
@@ -425,11 +426,19 @@ public class AgentTest : Agent
 
             else
             {
-                AddReward(100);
+                AddReward(100.0f);
                 EndEpisode();
             }
             // 다시 출발선으로 옮겨준다.
             //RandomStart.instance.StartPositionSet(gameObject);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
+            AddReward(-1.0f);
         }
     }
 

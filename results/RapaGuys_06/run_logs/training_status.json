@@ -1,0 +1,47 @@
+{
+    "RapaGuys": {
+        "checkpoints": [
+            {
+                "steps": 499984,
+                "file_path": "results\\RapaGuys_06\\RapaGuys\\RapaGuys-499984.onnx",
+                "reward": -30003.476831436157,
+                "creation_time": 1637229539.4855988,
+                "auxillary_file_paths": [
+                    "results\\RapaGuys_06\\RapaGuys\\RapaGuys-499984.pt"
+                ]
+            },
+            {
+                "steps": 999984,
+                "file_path": "results\\RapaGuys_06\\RapaGuys\\RapaGuys-999984.onnx",
+                "reward": -30000.97885608673,
+                "creation_time": 1637230721.6197298,
+                "auxillary_file_paths": [
+                    "results\\RapaGuys_06\\RapaGuys\\RapaGuys-999984.pt"
+                ]
+            },
+            {
+                "steps": 1000320,
+                "file_path": "results\\RapaGuys_06\\RapaGuys\\RapaGuys-1000320.onnx",
+                "reward": null,
+                "creation_time": 1637230722.781375,
+                "auxillary_file_paths": [
+                    "results\\RapaGuys_06\\RapaGuys\\RapaGuys-1000320.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000320,
+            "file_path": "results\\RapaGuys_06\\RapaGuys.onnx",
+            "reward": null,
+            "creation_time": 1637230722.781375,
+            "auxillary_file_paths": [
+                "results\\RapaGuys_06\\RapaGuys\\RapaGuys-1000320.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.10.0+cu113"
+    }
+}
