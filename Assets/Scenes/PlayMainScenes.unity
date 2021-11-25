@@ -418,6 +418,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RapaGuys (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2958628113387823405, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
 --- !u!1 &354074081 stripped
@@ -719,6 +723,10 @@ PrefabInstance:
     - target: {fileID: 2958628113387823405, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
       propertyPath: m_Name
       value: RapaGuys (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958628113387823405, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
@@ -1200,6 +1208,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RapaGuys (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2958628113387823405, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
 --- !u!114 &1864716168 stripped
@@ -1507,6 +1519,10 @@ PrefabInstance:
     - target: {fileID: 2958628113387823405, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
       propertyPath: m_Name
       value: RapaGuys (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958628113387823405, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
@@ -1899,6 +1915,10 @@ PrefabInstance:
     - target: {fileID: 2958628113138069772, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
       propertyPath: m_BehaviorName
       value: RapaGuys
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958628113138069772, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
+      propertyPath: m_BehaviorType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2958628113138069773, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
       propertyPath: rs
