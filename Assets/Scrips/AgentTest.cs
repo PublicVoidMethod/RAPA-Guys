@@ -64,15 +64,22 @@ public class AgentTest : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        AddReward(-1.0f / MaxStep);
+        if(MaxStep != 0)
+        {
+            AddReward(-1.0f / (float)MaxStep);
+            if (oldZ < transform.position.z)
+                AddReward(50.0f / (float)MaxStep);
+            else AddReward(-100f / (float)MaxStep);
+        } 
 
-        if (oldZ < transform.position.z)
-            AddReward(5.0f / MaxStep);
-        else AddReward(-0.5f / MaxStep);
 
         oldZ = transform.position.z;
 
-        if (transform.position.y < 5f) AddReward(-3.0f);
+        if (transform.position.y < -5f)
+        {
+            AddReward(-10.0f);
+            EndEpisode();
+        }
 
         // 전후, 좌우, 점프, 다이빙의 액션키값 받기
         float horizontal = actions.DiscreteActions.Array[0] - 1;
@@ -378,6 +385,12 @@ public class AgentTest : Agent
                 acceleVec = acceleVec * 0.98f;
                 acceleVec.y = acceleVec.y * 0.3f;
             }
+        }
+
+        // 다리에 닿았을 때
+        if (hit.gameObject.CompareTag("Bridge"))
+        {
+            AddReward(3.0f);
         }
     }
 

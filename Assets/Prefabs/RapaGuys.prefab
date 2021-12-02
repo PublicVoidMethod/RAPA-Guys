@@ -555,8 +555,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
-  m_DetectableTags: []
+  m_SensorName: RapaGuys2
+  m_DetectableTags:
+  - Ground
+  - Obstacle
+  - SpinObstacle
+  - Stone
+  - Hammer
+  - Pendulum
+  - Bridge
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 90
   m_SphereCastRadius: 0.19
@@ -584,7 +591,7 @@ GameObject:
   - component: {fileID: 2958628111483920912}
   m_Layer: 0
   m_Name: Bridge
-  m_TagString: Untagged
+  m_TagString: Bridge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -724,7 +731,7 @@ GameObject:
   - component: {fileID: 2958628111518157579}
   m_Layer: 0
   m_Name: Bridge (1)
-  m_TagString: Untagged
+  m_TagString: Bridge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1360,7 +1367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628111622690117
 Transform:
   m_ObjectHideFlags: 0
@@ -1744,7 +1751,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2958628111701053093}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.76, y: 2.88, z: 86.88}
+  m_LocalPosition: {x: -0.76, y: 0.89, z: 26.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2958628112711427904}
@@ -1768,7 +1775,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628111705327272
 Transform:
   m_ObjectHideFlags: 0
@@ -1923,7 +1930,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628111737272948
 Transform:
   m_ObjectHideFlags: 0
@@ -2488,7 +2495,7 @@ GameObject:
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628111871018982
 Transform:
   m_ObjectHideFlags: 0
@@ -2929,7 +2936,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628111951231167
 Transform:
   m_ObjectHideFlags: 0
@@ -3352,7 +3359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628112044146591
 Transform:
   m_ObjectHideFlags: 0
@@ -3643,7 +3650,7 @@ GameObject:
   - component: {fileID: 2958628112079781231}
   m_Layer: 0
   m_Name: Bridges
-  m_TagString: Untagged
+  m_TagString: Bridge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4826,7 +4833,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628112338955527
 Transform:
   m_ObjectHideFlags: 0
@@ -4871,7 +4878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628112365851232
 Transform:
   m_ObjectHideFlags: 0
@@ -4973,8 +4980,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
-  m_DetectableTags: []
+  m_SensorName: RapaGuys3
+  m_DetectableTags:
+  - Ground
+  - Obstacle
+  - SpinObstacle
+  - Stone
+  - Hammer
+  - Pendulum
+  - Bridge
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 65.9
   m_SphereCastRadius: 0.19
@@ -5159,7 +5173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628112384900633
 Transform:
   m_ObjectHideFlags: 0
@@ -5234,7 +5248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628112412902846
 Transform:
   m_ObjectHideFlags: 0
@@ -7131,8 +7145,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
-  m_DetectableTags: []
+  m_SensorName: RapaGuys0
+  m_DetectableTags:
+  - Ground
+  - Obstacle
+  - SpinObstacle
+  - Stone
+  - Hammer
+  - Pendulum
+  - Bridge
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 90
   m_SphereCastRadius: 0.19
@@ -7682,7 +7703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628112781893476
 Transform:
   m_ObjectHideFlags: 0
@@ -7816,8 +7837,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
-  m_DetectableTags: []
+  m_SensorName: RapaGuys1
+  m_DetectableTags:
+  - Ground
+  - Obstacle
+  - SpinObstacle
+  - Stone
+  - Hammer
+  - Pendulum
+  - Bridge
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 90
   m_SphereCastRadius: 0.19
@@ -8325,7 +8353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628112922459058
 Transform:
   m_ObjectHideFlags: 0
@@ -8706,7 +8734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628113038057911
 Transform:
   m_ObjectHideFlags: 0
@@ -8921,7 +8949,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628113098163922
 Transform:
   m_ObjectHideFlags: 0
@@ -9299,7 +9327,6 @@ GameObject:
   - component: {fileID: 2958628113138069760}
   - component: {fileID: 2958628113138069763}
   - component: {fileID: 2958628113138069762}
-  - component: {fileID: 2958628113138069765}
   - component: {fileID: 2958628113138069773}
   - component: {fileID: 2958628113138069764}
   - component: {fileID: 2958628113138069775}
@@ -9412,28 +9439,6 @@ CharacterController:
   m_SkinWidth: 0.01
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.25, z: 0}
---- !u!114 &2958628113138069765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2958628113138069767}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a895a0e8488e85745af0783cbf527b3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pState: 0
-  playerSpeed: 2
-  gravity: -10
-  jumpPower: 2.5
-  rotateSpeed: 10
-  divingSpeed: 3
-  hammerPower: 5
-  playerModel: {fileID: 3352245935744369438}
-  divingPoint: {fileID: 2958628112841979387}
-  acceleVec: {x: 0, y: 0, z: 0}
 --- !u!114 &2958628113138069773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9461,6 +9466,7 @@ MonoBehaviour:
   playerModel: {fileID: 3352245935744369438}
   divingPoint: {fileID: 2958628112841979387}
   acceleVec: {x: 0, y: 0, z: 0}
+  rs: {fileID: 2958628112326527155}
 --- !u!114 &2958628113138069764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9488,6 +9494,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savePoint: {x: 0, y: 0, z: 0}
+  parent: {fileID: 0}
+  startPos: {fileID: 0}
 --- !u!114 &2958628113138069772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9501,7 +9509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 44
+    VectorObservationSize: 0
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -9513,7 +9521,7 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: My Behavior
+  m_BehaviorName: RapaGuys
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -9548,7 +9556,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628113173292691
 Transform:
   m_ObjectHideFlags: 0
@@ -9798,7 +9806,7 @@ GameObject:
   - component: {fileID: 2958628113217582089}
   m_Layer: 0
   m_Name: Bridge (2)
-  m_TagString: Untagged
+  m_TagString: Bridge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10098,7 +10106,7 @@ GameObject:
   - component: {fileID: 2958628113259398203}
   m_Layer: 0
   m_Name: Bridge (3)
-  m_TagString: Untagged
+  m_TagString: Bridge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10811,7 +10819,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628113349525730
 Transform:
   m_ObjectHideFlags: 0
@@ -11386,7 +11394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958628113490764695
 Transform:
   m_ObjectHideFlags: 0

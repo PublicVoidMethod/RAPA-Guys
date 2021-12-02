@@ -1897,6 +1897,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1744441699}
     - target: {fileID: 2958628113138069772, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958628113138069772, guid: 17101a95b07563747aeb6b774be2a014, type: 3}
       propertyPath: m_BehaviorName
       value: RapaGuys
       objectReference: {fileID: 0}
